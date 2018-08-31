@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Common {
-	WebDriver dr;
+	public static WebDriver dr;
 	public Common(WebDriver dr) {
 		this.dr = dr;
 	}
@@ -16,7 +16,7 @@ public class Common {
 		WebDriverAction myact = new WebDriverAction(dr);
 		myact.sendKeys("id=mod-login-username", username);
 		myact.sendKeys("id=mod-login-password", pass);
-		myact.click("//input[@id='mod-login-password']/../../../following-sibling::div");
+		myact.click("xpath=//input[@id='mod-login-password']/../../../following-sibling::div");
 	}
 
 }

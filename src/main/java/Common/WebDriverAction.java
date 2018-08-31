@@ -22,7 +22,11 @@ public class WebDriverAction {
 			if(locator.startsWith("xpath=")) {
 				locator=locator.substring(6);
 				by=By.xpath(locator);
-			}
+			}else
+				if(locator.startsWith("linktext=")) {
+					locator=locator.substring(9);
+							by=By.linkText(locator);
+				}
 		return by;
 
 	}
@@ -32,6 +36,11 @@ public class WebDriverAction {
 	}
 	public void sendKeys(String locator, String key) {
 		dr.findElement(getElement(locator)).sendKeys(key);
+	}
+	public void hover(String locator) {
+		Actions act = new Actions(dr);
+		act.moveToElement(dr.findElement(getElement(locator))).build().perform();
+		
 	}
 	
 	public void draganddrop(String from, String to) {
