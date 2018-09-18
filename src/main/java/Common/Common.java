@@ -9,7 +9,8 @@ public class Common {
 		this.dr = dr;
 	}
 	public void login(String url, String username, String pass) {
-		System.setProperty("chromedriver.exe", "D://Sel//chromedriver.exe");
+		System.setProperty("chromedriver.exe", "D://Sel//chromdriver.exe");
+//		System.setProperty("geckodriver.exe", "D://Sel//geckodriver.exe");
 		dr = new ChromeDriver();
 		dr.manage().window().maximize();
 		dr.get(url+"/administrator");
@@ -20,3 +21,4 @@ public class Common {
 	}
 
 }
+ 

@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -27,39 +25,62 @@ public class AddArticle {
 	public void createArticle() throws InterruptedException {
 		this.dr=Common.dr;
 		WebDriverAction myact = new WebDriverAction(dr);
-		System.out.println("pass 1");
+
 
 		dr.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		//		click menu Content
 		myact.click("xpath=//ul[@id='menu']//li/a[text()='Content ']");
-		System.out.println("pass 2");
+		//		hover menu aticle
 		myact.hover("xpath=//li/a[@class='dropdown-toggle menu-article']/..");
+		//		click menu Add new Article
 		myact.click("linktext=Add New Article");
 		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
-	/*	myact.click("xpath=//a[@id='ui-show-catalog-button']/../a[2]");
+
+
+		//		click btn Click To Edit
+		//		myact.click("xpath=//button[text()='Click To Edit']");
+		 
+		
+		/** close modal Select template */
+		dr.switchTo().frame("pagefly-pb-app");
+		dr.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		myact.click("xpath=//*[text()='Start from blank']/..");
+//		Actions builder = new Actions(dr);
+//		builder.moveToElement(dr.findElement(By.xpath("//div[contains(@class,'template-picker')]")),-15,0);
+
+		myact.click("id=sidebar-show-catalog-Standard-button");
+		
+		/*WebElement iframe = dr.findElement(By.tagName("iframe"));
+		System.out.println("id of iframe2:\t"+ iframe.getAttribute("id").toString());
+		Actions closemodal= new Actions(dr);
+		closemodal.moveToElement(dr.findElement(By.xpath("//main/header")),25,87).click().perform();*/
+
+
 		dr.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		myact.click("xpath=//div[text()='Paragraph']");
-		dr.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		String location1 = dr.findElement(By.xpath("//img[@name='Paragraph']/../img[1]")).getLocation().toString();
+		String location1 = dr.findElement(By.id("catalog-elem-01.paragraph")).getLocation().toString();
 		System.out.println("locaiton of image:\t"+location1);
-		//		wait for element visible
-		WebDriverWait wait = new WebDriverWait(dr, 10);		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(myact.getElement("xpath=//img[@name='Paragraph']/../img[1]")));
-		wait.until(ExpectedConditions.elementToBeClickable(myact.getElement("xpath=//img[@name='Paragraph']/../img[1]")));
-		myact.dragbyOffset("xpath=//img[@name='Paragraph']/../img[1]", -500, 225);
-		//	  myact.dragtoElement("xpath=//img[@name='Paragraph']/../img[1]","xpath=//div[@data-type='Body']" );
-		String location = dr.findElement(By.xpath("//img[@name='Paragraph']/../img[1]")).getLocation().toString();
-		System.out.println("locaiton of image:\t"+location);
-		System.out.println("pass all");*/
-		dr.findElement(myact.getElement("xpath=//div[@data-type='Body']")).click();
-		Thread.sleep(2000);
-		String getText = dr.findElement(myact.getElement("xpath=//div[@data-type='Body']/div/div/h3")).getText();
+		System.out.println("show dimension\t"+dr.findElement(By.id("catalog-elem-01.paragraph")).getSize());
+		Thread.sleep(1000);
 		
+		/** drag the first element*/
+		//		myact.dragbyOffset("xpath=//img[@name='Paragraph']/../img[1]", 0, 225);
+		myact.dragtoElement("id=catalog-elem-01.paragraph","xpath=//div[@data-type='Layout']" );
+//		myact.dragdropjs("id=catalog-elem-01.paragraph", "xpath=//div[@data-type='Layout']");
+		
+
+		//		dr.findElemeundefinednt(myact.getElement("xpath=//div[@data-type='Body']")).click();
+		Thread.sleep(2000);
+		dr.switchTo().frame(1);
+		String getText = dr.findElement(myact.getElement("xpath=//div[@data-type='Body']/div/div/h3")).getText();
+		String tagname = dr.findElement(myact.getElement("xpath=//div[@data-type='Body']/div/div/h3")).getTagName();
+		System.out.println("tag name is:\t"+tagname);
 		System.out.println("placeholder text is:\t"+getText);
-	}
+	} 
 	@BeforeMethod
 	public void beforeMethod() {
 	}
-
+	//698c9358364e51b0704fd12210823fec
 	@AfterMethod
 	public void afterMethod() {
 	}
@@ -67,11 +88,13 @@ public class AddArticle {
 	@BeforeClass
 	public void beforeClass() {
 		Common cm = new Common(dr);
-		cm.login("http://bravebits.io/j5", "admin", "1");
+		cm.login("http://webmaster1536718658921.demobuilder.joomlashine.com", "admin", "123456");
+//		cm.login("http://localhost/joomla39pb3", "admin", "1");
 	}
 
 	@AfterClass
 	public void afterClass() {
+		//		dr.close();
 	}
 
 	@BeforeTest
