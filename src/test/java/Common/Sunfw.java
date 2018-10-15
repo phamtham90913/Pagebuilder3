@@ -58,6 +58,20 @@ public class Sunfw {
 		java_script = java_script
 				+ "$('i[class=\"fa fa-picture-o\"]').simulateDragDrop({ dropTarget: 'div[class=\"jsn-content-main\"]'});";
 		((JavascriptExecutor) dr).executeScript(java_script);
+		
+		System.out.println(java_script);
+//		java_script = java_script
+//				+ "$('//img[@id='catalog-elem-02.paragraph']').simulateDragDrop({ dropTarget: '//div[@data-type='Layout']'});";
+//		((JavascriptExecutor) dr).executeScript(java_script);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@BeforeClass

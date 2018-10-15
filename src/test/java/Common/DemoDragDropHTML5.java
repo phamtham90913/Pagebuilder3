@@ -20,9 +20,9 @@ import org.testng.annotations.Test;
 
 public class DemoDragDropHTML5 {
 	WebDriver dr;
-	String url = "http://webmaster1537409700986.demobuilder.joomlashine.com",
+	String url = "http://bravebits.io/j5",
 			username = "admin",
-			pass = "123456";
+			pass = "1";
 	@Test
     public void TC_Demo_Html5() throws Exception {
 		dr.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -127,10 +127,10 @@ public class DemoDragDropHTML5 {
 	}
   @BeforeClass
   public void beforeClass() {
-	  System.setProperty("chromedriver.exe", "D://Sel//chromdriver.exe");
+//	  System.setProperty("chromedrivergd.exe", "D://Sel//chromdriver.exe");
 //		System.setProperty("geckodriver.exe", "D://Sel//geckodriver.exe");
 		dr = new ChromeDriver();
-		dr.manage().window().maximize();
+		dr.manage().window().fullscreen();
 		dr.get(url+"/administrator");
 		WebDriverAction myact = new WebDriverAction(dr);
 		myact.sendKeys("id=mod-login-username", username);

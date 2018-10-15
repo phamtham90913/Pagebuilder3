@@ -1,8 +1,6 @@
 package Common;
 
 import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,22 +28,16 @@ public class DragandDropbyJS {
 		dr.findElement(By.xpath("//ul[@id='menu']//li/a[text()='Content ']")).click();
 		// hover menu aticle
 		Actions act = new Actions(dr);
-		act.moveToElement(dr.findElement(By.xpath("//li/a[@class='dropdown-toggle menu-article']/.."))).build()
-				.perform();
+		act.moveToElement(dr.findElement(By.xpath("//li/a[@class='dropdown-toggle menu-article']/.."))).build().perform();
 		// click menu Add new Article
 		dr.findElement(By.linkText("Add New Article")).click();
-//		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 
 		/* close modal Select template */
 		dr.switchTo().frame("pagefly-pb-app");
-		Robot robot = new Robot();
-		robot.mouseMove(50, 200);
-		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		dr.findElement(By.xpath("//span[text()='Start from blank']/..")).click();
 
 		/* Click on element Paragraph */
 		dr.findElement(By.id("sidebar-show-catalog-Standard-button")).click();
-		dr.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		dr.findElement(By.xpath("//div[text()='Paragraph']")).click();
 		dr.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		String java_script = "";
@@ -64,8 +56,9 @@ public class DragandDropbyJS {
 		 * "$('div[id=\"column-a\"]').simulateDragDrop({ dropTarget: 'div[id=\"column-b\"]'});"
 		 * ; ((JavascriptExecutor) dr).executeScript(java_script);
 		 */
-		java_script = java_script
-				+ "$('img[id=\"catalog-elem-02.paragraph\"]').simulateDragDrop({ dropTarget: 'div[data-type=\"Layout\"]'});";
+		System.out.println("java_script: " + java_script);
+		java_script = java_script + "$('img[id=\"catalog-elem-02.paragraph\"]').simulateDragDrop({ dropTarget: 'div[data-type=\"Layout\"]'});";
+		System.out.println("java_script: " + java_script);
 		((JavascriptExecutor) dr).executeScript(java_script);
 
 	}

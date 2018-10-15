@@ -30,8 +30,7 @@ public class DragbyJs {
 		dr.findElement(By.xpath("//ul[@id='menu']//li/a[text()='Content ']")).click();
 		// hover menu aticle
 		Actions act = new Actions(dr);
-		act.moveToElement(dr.findElement(By.xpath("//li/a[@class='dropdown-toggle menu-article']/.."))).build()
-				.perform();
+		act.moveToElement(dr.findElement(By.xpath("//li/a[@class='dropdown-toggle menu-article']/.."))).build().perform();
 		// click menu Add new Article
 		dr.findElement(By.linkText("Add New Article")).click();
 //		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
@@ -80,9 +79,9 @@ public class DragbyJs {
 			buffer.append(text + " ");
 		java_script = buffer.toString();
 		input.close();
-
-		java_script = java_script
-				+ "$('div[id=\"column-a\"]').simulateDragDrop({ dropTarget: 'div[id=\"column-b\"]'});";
+		System.out.println("java_script: " + java_script);
+		java_script = java_script + "$('div[id=\"column-a\"]').simulateDragDrop({ dropTarget: 'div[id=\"column-b\"]'});";
+		System.out.println("java_script: " + java_script);
 		((JavascriptExecutor) dr).executeScript(java_script);
 
 		Thread.sleep(10000);

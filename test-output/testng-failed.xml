@@ -3,19 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Common.AddArticle">
+      <class name="elements.Paragraph">
         <methods>
+          <include name="createNewArticle"/>
           <include name="afterClass"/>
-          <include name="beforeSuite"/>
-          <include name="afterTest"/>
-          <include name="beforeTest"/>
-          <include name="afterMethod"/>
-          <include name="afterSuite"/>
           <include name="beforeClass"/>
-          <include name="f"/>
-          <include name="beforeMethod"/>
         </methods>
-      </class> <!-- Common.AddArticle -->
+      </class> <!-- elements.Paragraph -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
