@@ -3,6 +3,7 @@ package Common;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -10,9 +11,11 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
+import pageObjects.Joomla_Menu_Bar;
 import pageObjects.Login_Page;
+import pageObjects.PB3_Editor;
 
 public class Common {
 	public static WebDriver dr;
@@ -21,15 +24,25 @@ public class Common {
 		this.dr = dr;
 	}
 
-	public void login(String url, String username, String pass) {
-		System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
-		dr = new ChromeDriver();
+	PB3_Editor pb3_Editor = new PB3_Editor(dr);
+
+	public void login(String url, String username, String pass, WebDriver dr) {
+
 		dr.manage().window().maximize();
 		dr.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		dr.get(url + "/administrator");
 		Login_Page.txtbx_UserName(dr).sendKeys(username);
 		Login_Page.txtbx_Password(dr).sendKeys(pass);
-		Login_Page.btn_Submit(dr).click();  
+		Login_Page.btn_Submit(dr).click();
+	}
+
+	public void create_New_Page_By_Pb3Editor(WebDriver dr) {
+		dr.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		Joomla_Menu_Bar.menu_Content(dr).click();
+		Actions act = new Actions(dr);
+		act.moveToElement(Joomla_Menu_Bar.menu_Articles(dr)).build().perform();
+		Joomla_Menu_Bar.menu_Add_New_Articles(dr).click();
+		pb3_Editor.btn_Click_To_Edit().click();
 	}
 
 	public void drag_element_to_editor(String sourceLocator, String targetLocator) throws AWTException, InterruptedException {
@@ -85,5 +98,11 @@ public class Common {
 		// Drop
 		robot.mouseRelease(InputEvent.BUTTON1_MASK);
 
-	} 
+	}
+
+	public int random_Number() {
+		Random rand = new Random();
+		int number = rand.nextInt(999);
+		return number;
+	}
 }
