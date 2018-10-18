@@ -1,4 +1,4 @@
-package Common;
+package commons;
 
 import java.awt.AWTException;
 import java.io.BufferedReader;
@@ -13,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import Common.WebDriverAction;
 
 public class DragandDropbyJS {
 	WebDriver dr;

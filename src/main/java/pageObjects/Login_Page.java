@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class Login_Page {
 	private static WebElement element = null;
+	private WebDriver driver;
+
+	public Login_Page(WebDriver driver) {
+		this.driver = driver;
+	}
 
 	public static WebElement txtbx_UserName(WebDriver driver) {
 		element = driver.findElement(By.id("mod-login-username"));

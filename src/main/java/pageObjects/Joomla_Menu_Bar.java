@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class Joomla_Menu_Bar {
 	private static WebElement element = null;
+	private WebDriver driver;
+
+	public Joomla_Menu_Bar(WebDriver driver) {
+		this.driver = driver;
+	}
 
 	public static WebElement menu_Menus(WebDriver driver) {
 		element = driver.findElement(By.xpath("//a[contains(text(),'Menus')]"));

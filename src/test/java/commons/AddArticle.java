@@ -1,4 +1,4 @@
-package Common;
+package commons;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -22,61 +22,64 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import Common.Common;
+import Common.WebDriverAction;
+
 public class AddArticle {
-	WebDriver dr;
+	WebDriver driver;
 
 	@Test
 	public void createArticle() throws InterruptedException, AWTException {
-		this.dr = Common.dr;
-		WebDriverAction myact = new WebDriverAction(dr);
+		this.driver = Common.driver;
+		WebDriverAction myact = new WebDriverAction(driver);
 
-		dr.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		// click menu Content
 		myact.click("xpath=//ul[@id='menu']//li/a[text()='Content ']");
 		// hover menu aticle
 		myact.hover("xpath=//li/a[@class='dropdown-toggle menu-article']/..");
 		// click menu Add new Article
 		myact.click("linktext=Add New Article");
-		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 
 		// click btn Click To Edit
 		// myact.click("xpath=//button[text()='Click To Edit']");
 
 		/** close modal Select template */
-		dr.switchTo().frame("pagefly-pb-app");
-		Assert.assertTrue(dr.findElement(By.xpath("//span[text()='Template Library']")).isDisplayed());
+		driver.switchTo().frame("pagefly-pb-app");
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='Template Library']")).isDisplayed());
 		myact.click("xpath=//*[text()='Start from blank']/..");
-//		Actions builder = new Actions(dr);
-//		builder.moveToElement(dr.findElement(By.xpath("//div[contains(@class,'template-picker')]")),-15,0);
+//		Actions builder = new Actions(driver);
+//		builder.moveToElement(driver.findElement(By.xpath("//div[contains(@class,'template-picker')]")),-15,0);
 
 		myact.click("id=sidebar-show-catalog-Standard-button");
 
 		/*
-		 * WebElement iframe = dr.findElement(By.tagName("iframe"));
+		 * WebElement iframe = driver.findElement(By.tagName("iframe"));
 		 * System.out.println("id of iframe2:\t"+ iframe.getAttribute("id").toString());
-		 * Actions closemodal= new Actions(dr);
-		 * closemodal.moveToElement(dr.findElement(By.xpath("//main/header")),25,87).
+		 * Actions closemodal= new Actions(driver);
+		 * closemodal.moveToElement(driver.findElement(By.xpath("//main/header")),25,87).
 		 * click().perform();
 		 */
 
-		dr.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
 		myact.click("xpath=//div[text()='Paragraph']");
-		String location1 = dr.findElement(By.id("catalog-elem-01.paragraph")).getLocation().toString();
+		String location1 = driver.findElement(By.id("catalog-elem-01.paragraph")).getLocation().toString();
 		System.out.println("locaiton of image:\t" + location1);
-		System.out.println("show dimension\t" + dr.findElement(By.id("catalog-elem-01.paragraph")).getSize());
+		System.out.println("show dimension\t" + driver.findElement(By.id("catalog-elem-01.paragraph")).getSize());
 		Thread.sleep(1000);
 
 		/* drag the first element */
 		String source = "//*[@id='catalog-elem-02.paragraph']";
 		String target = "//div[@data-type='Layout']";
-		Common common = new Common(dr);
+		Common common = new Common(driver);
 		common.drag_element_to_editor(source, target);
 		myact.click("xpath=//div[text()='Button']");
 		String source2 = "//img[@id='catalog-elem-03.button']";
 		common.drag_element_to_editor(source2, target);
 
 		/* click to close left sidebar */
-		dr.switchTo().frame(dr.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
+		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
 		Robot robot = new Robot();
 		robot.setAutoDelay(500);
 		robot.mouseMove(784, 532);
@@ -95,8 +98,8 @@ public class AddArticle {
 
 	@BeforeClass
 	public void beforeClass() {
-		Common cm = new Common(dr);
-		cm.login("http://bravebits.io/j5", "admin", "1");
+		Common cm = new Common(driver);
+//		cm.login("http://bravebits.io/j5", "admin", "1");
 //		cm.login("http://localhost/joomla39pb3", "admin", "1");
 	}
 
@@ -123,17 +126,17 @@ public class AddArticle {
 
 	public void drag() {
 		System.setProperty("webdriver.chrome.driver", "D://Sel//chromedriver.exe");
-		dr = new ChromeDriver();
-		dr.manage().window().maximize();
-		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
-		dr.get("http://demo.guru99.com/test/drag_drop.html");
-		dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
-		// WebDriverAction myact = new WebDriverAction(dr);
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+		driver.get("http://demo.guru99.com/test/drag_drop.html");
+		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+		// WebDriverAction myact = new WebDriverAction(driver);
 		// myact.dragandrop("xpath=//li[@id='credit2']/a", 350, 613);
-		WebElement from = dr.findElement(By.xpath("//li[@id='credit2']/a"));
-		Actions builder = new Actions(dr);
+		WebElement from = driver.findElement(By.xpath("//li[@id='credit2']/a"));
+		Actions builder = new Actions(driver);
 		try {
-			dr.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 			builder.clickAndHold(from).moveByOffset(350, 613).release().build();
 
 		} catch (Exception e) {

@@ -3,50 +3,25 @@ package Common;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-import pageObjects.Joomla_Menu_Bar;
-import pageObjects.Login_Page;
 import pageObjects.PageBuilder3_Editor;
 
-public class Common {
-	public static WebDriver driver;
+public class AbstractPage {
+	public void drag_drop_though_iframes(String element_From, String element_To, WebDriver driver) throws AWTException {
 
-	public Common(WebDriver driver) {
-		this.driver = driver;
-	}
+		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_Editor)));
+		WebElement source = driver.findElement(By.xpath(element_From));
+//		driver.switchTo().frame(PageBuilder3_Editor.iframe_inner_Editor(driver));
+//		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
+		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
 
-//	PageBuilder3_Editor pb3_Editor = new PageBuilder3_Editor(driver);
-	Joomla_Menu_Bar menu_bar = new Joomla_Menu_Bar(driver);
-
-	public void login(String url, String username, String pass, WebDriver driver) {
-		driver.get(url + "/administrator");
-		Login_Page.txtbx_UserName(driver).sendKeys(username);
-		Login_Page.txtbx_Password(driver).sendKeys(pass);
-		Login_Page.btn_Submit(driver).click();
-	}
-
-	public void create_New_Page_By_Pb3Editor(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		Joomla_Menu_Bar.menu_Content(driver).click();
-		Actions act = new Actions(driver);
-		act.moveToElement(Joomla_Menu_Bar.menu_Articles(driver)).build().perform();
-		Joomla_Menu_Bar.menu_Add_New_Articles(driver).click();
-	}
-
-	public void drag_element_to_editor(String sourceLocator, String targetLocator) throws AWTException, InterruptedException {
-
-		WebElement source = driver.findElement(By.xpath(sourceLocator));
-		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
-		WebElement target = driver.findElement(By.xpath(targetLocator));
+		WebElement target = driver.findElement(By.xpath(element_To));
 		driver.switchTo().parentFrame();
 
 		// Setup robot
@@ -55,7 +30,9 @@ public class Common {
 
 		// Get size of elements
 		Dimension sourceSize = source.getSize();
-		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
+//		driver.switchTo().frame(PageBuilder3_Editor.iframe_inner_Editor(driver));
+		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
+
 		Dimension targetSize = target.getSize();
 		driver.switchTo().parentFrame();
 
@@ -66,7 +43,8 @@ public class Common {
 		int yCentreTarget = targetSize.height / 2;
 
 		Point sourceLocation = source.getLocation();
-		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
+//		driver.switchTo().frame(PageBuilder3_Editor.iframe_Editor(driver));
+		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
 		Point targetLocation = target.getLocation();
 		driver.switchTo().parentFrame();
 		System.out.println("get center distance of source: " + sourceLocation.toString());
@@ -87,7 +65,6 @@ public class Common {
 		// Click and drag
 		robot.mousePress(InputEvent.BUTTON1_MASK);
 		robot.mouseMove(((sourceLocation.x - targetLocation.x) / 2) + targetLocation.x, ((sourceLocation.y - targetLocation.y) / 2) + targetLocation.y);
-//			robot.mouseMove(targetLocation.x-1, targetLocation.y);
 
 		// Move to final position
 		robot.mouseMove(targetLocation.x, targetLocation.y);
@@ -97,9 +74,8 @@ public class Common {
 
 	}
 
-	public int random_Number() {
-		Random rand = new Random();
-		int number = rand.nextInt(999);
-		return number;
+	public void clickElement(String locator, WebDriver driver) {
+		driver.findElement(By.xpath(locator)).click();
 	}
+	
 }
