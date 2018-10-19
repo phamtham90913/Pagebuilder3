@@ -24,10 +24,7 @@ public class PageBuilder3_Editor {
 	public static String iframe_inner_Editor = "//main//iframe[@name='React Portal Frame']";
 
 	/* Top bar */
-	public static WebElement txtbx_Page_Title(WebDriver driver) {
-		element = driver.findElement(By.xpath("//header//input[contains(@placeholder,'Enter Page Title')]"));
-		return element;
-	}
+	public static String txtbx_Page_Title = "//header//input[contains(@placeholder,'Enter Page Title')]";
 
 	public WebElement link_Page_Setting() {
 		element = driver.findElement(By.xpath(""));
@@ -64,31 +61,19 @@ public class PageBuilder3_Editor {
 		return element;
 	}
 
-	public WebElement btn_View() {
-		element = driver.findElement(By.xpath(""));
-		return element;
-	}
+	public static String btn_View = "//a[text()='View']";
 
-	public WebElement btn_Close() {
-		element = driver.findElement(By.xpath(""));
-		return element;
-	}
+	public static String btn_Close= "";
 
 	public WebElement btn_Save_As_Copy() {
 		element = driver.findElement(By.xpath(""));
 		return element;
 	}
 
-	public WebElement btn_Save() {
-		element = driver.findElement(By.xpath(""));
-		return element;
-	}
+	public  static String btn_Save = "//a/span[text()='Save']/..";
 
 	/* Left side bar */
-	public static WebElement icon_Add_Element(WebDriver driver) {
-		element = driver.findElement(By.id("sidebar-show-catalog-Standard-button"));
-		return element;
-	}
+	public static String icon_Add_Element = "//a[@id='sidebar-show-catalog-Standard-button']";
 
 	public WebElement icon_Add_Joomla_Element() {
 		element = driver.findElement(By.xpath(""));
@@ -136,10 +121,7 @@ public class PageBuilder3_Editor {
 		return element;
 	}
 
-	public static WebElement link_Paragraph(WebDriver driver) {
-		element = driver.findElement(By.xpath("//aside//div[text() = 'Paragraph']"));
-		return element;
-	}
+	public static String link_Paragraph = "//aside//div[text() = 'Paragraph']";
 
 	public WebElement link_Image() {
 		element = driver.findElement(By.xpath(""));
@@ -199,19 +181,15 @@ public class PageBuilder3_Editor {
 	}
 
 	/* Template library */
-	public static WebElement pu_Template_Library(WebDriver driver) {
-		element = driver.findElement(By.xpath("//header[@content='Template Library']/.."));
-		return element;
-	}
+	public static String pu_Template_Library = "//header[@content='Template Library']/..";
 
-	public static WebElement btn_Start_From_Blank(WebDriver driver) {
-		element = driver.findElement(By.xpath("//span[text()='Start from blank']/.."));
-		return element;
-	}
+	public static String btn_Start_From_Blank = "//span[text()='Start from blank']/..";
 
-	public static WebElement btn_Start_With_This_Template(WebDriver driver) {
-		element = driver.findElement(By.xpath("//span[text()='Start with this template']/.."));
-		return element;
-	}
+	public static String btn_Start_With_This_Template = "//span[text()='Start with this template']/..";
 
+	
+	
+	/*Element in editor*/
+	public static String editor_Paragraph = "//section//p[@data-type='Paragraph']";
+	
 }

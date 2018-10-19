@@ -1,6 +1,7 @@
 package Common;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.util.Random;
@@ -101,5 +102,21 @@ public class Common {
 		Random rand = new Random();
 		int number = rand.nextInt(999);
 		return number;
+	}
+	public static String hex2Rgb(String hexaColor) {
+	    Color c = new Color(
+	        Integer.valueOf(hexaColor.substring(1, 3), 16), 
+	        Integer.valueOf(hexaColor.substring(3, 5), 16), 
+	        Integer.valueOf(hexaColor.substring(5, 7), 16));
+
+	    StringBuffer sb = new StringBuffer();
+	    sb.append("rgb(");
+	    sb.append(c.getRed());
+	    sb.append(",");
+	    sb.append(c.getGreen());
+	    sb.append(",");
+	    sb.append(c.getBlue());
+	    sb.append(")");
+	    return sb.toString();
 	}
 }

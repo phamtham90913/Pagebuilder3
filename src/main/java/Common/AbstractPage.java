@@ -3,6 +3,7 @@ package Common;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -13,14 +14,36 @@ import org.openqa.selenium.WebElement;
 import pageObjects.PageBuilder3_Editor;
 
 public class AbstractPage {
+	public void clickElement(String locator, WebDriver driver) {
+		driver.findElement(By.xpath(locator)).click();
+	}
+
+	public void sendKeys(String locator, String keys, WebDriver driver) {
+		driver.findElement(By.xpath(locator)).sendKeys(keys);
+	}
+
+	public String getTextofElement(String locator, WebDriver driver) {
+		return driver.findElement(By.xpath(locator)).getText();
+	}
+
+	public String getSizeofText(String locator, WebDriver driver) {
+		return driver.findElement(By.xpath(locator)).getCssValue("color");
+	}
+
+	 public void switchToChildWindow(String parent , WebDriver driver) {
+         Set<String> allWindows = driver.getWindowHandles();
+         for (String runWindow : allWindows) {
+                     if (!runWindow.equals(parent)) {
+                                 driver.switchTo().window(runWindow);
+                                 break;
+                     }
+         }
+}
 	public void drag_drop_though_iframes(String element_From, String element_To, WebDriver driver) throws AWTException {
 
 		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_Editor)));
 		WebElement source = driver.findElement(By.xpath(element_From));
-//		driver.switchTo().frame(PageBuilder3_Editor.iframe_inner_Editor(driver));
-//		driver.switchTo().frame(driver.findElement(By.xpath("//main//iframe[@name='React Portal Frame']")));
 		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
-
 		WebElement target = driver.findElement(By.xpath(element_To));
 		driver.switchTo().parentFrame();
 
@@ -30,9 +53,7 @@ public class AbstractPage {
 
 		// Get size of elements
 		Dimension sourceSize = source.getSize();
-//		driver.switchTo().frame(PageBuilder3_Editor.iframe_inner_Editor(driver));
 		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
-
 		Dimension targetSize = target.getSize();
 		driver.switchTo().parentFrame();
 
@@ -43,7 +64,6 @@ public class AbstractPage {
 		int yCentreTarget = targetSize.height / 2;
 
 		Point sourceLocation = source.getLocation();
-//		driver.switchTo().frame(PageBuilder3_Editor.iframe_Editor(driver));
 		driver.switchTo().frame(driver.findElement(By.xpath(PageBuilder3_Editor.iframe_inner_Editor)));
 		Point targetLocation = target.getLocation();
 		driver.switchTo().parentFrame();
@@ -74,8 +94,4 @@ public class AbstractPage {
 
 	}
 
-	public void clickElement(String locator, WebDriver driver) {
-		driver.findElement(By.xpath(locator)).click();
-	}
-	
 }

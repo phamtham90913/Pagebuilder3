@@ -16,4 +16,10 @@ public class PO_Inspector {
 		element = driver.findElement(By.xpath("//button[contains(@class,'click-to-edit')]"));
 		return element;
 	}
+
+	/* Tabs */
+	public static String TAB_GENERAL = "//a[text()='general']";
+	public static String TAB_STYLING = "//a[text()='styling']";
+	public static String TAB_ADVANCED = "//a[text()='advanced']";
+
 }
